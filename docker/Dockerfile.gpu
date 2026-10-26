@@ -1,0 +1,8 @@
+FROM camera-logic-simulator:cpu
+# Prepare this wheel with the documented pip download command (or reuse .wheelhouse).
+COPY .wheelhouse/gpu/*.whl /tmp/gpu-wheels/
+RUN pip install --no-cache-dir /tmp/gpu-wheels/*.whl openvino==2026.0.0 && rm -rf /tmp/gpu-wheels
+COPY src ./src
+COPY tests ./tests
+COPY pyproject.toml ./
+ENV PYTHONPATH=/app/src CI=true

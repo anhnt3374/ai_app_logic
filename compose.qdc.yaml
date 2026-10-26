@@ -1,0 +1,5 @@
+# Linux only: reach a QDC Connect tunnel that binds host 127.0.0.1.
+# Use BOARD_SSH_HOST=127.0.0.1 and the active Connect mapped port.
+services:
+  simulator:
+    network_mode: host

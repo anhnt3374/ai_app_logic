@@ -1,0 +1,16 @@
+schema_version: 1
+logic_id: face_recognition-2026-10-25-213000
+input:
+  path: data/input/demo.mp4
+  business_start_at: '2026-10-25T08:00:00+07:00'
+output:
+  root: runs
+stages:
+  person: {provider: mock, fps: 18}
+  face: {provider: mock, fps: 18}
+  embedding: {provider: mock, trigger: logic}
+business:
+  embedding_scheduler:
+    strategy: round_robin
+    max_faces_per_turn: 1
+    stop_when_confirmed: true

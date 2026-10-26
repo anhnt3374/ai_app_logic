@@ -1,0 +1,17 @@
+schema_version: 1
+logic_id: face_recognition-2026-10-25-213000
+input: {path: data/input/real-demo.mp4}
+output: {root: runs}
+targets:
+  host_gpu:
+    location: host
+    device: gpu
+    runtime: onnxruntime
+    provider: CUDAExecutionProvider
+    allow_fallback: false
+stages:
+  person: {provider: real, model: yolox, target: host_gpu, fps: 18}
+  face: {provider: real, model: yunet, target: host_gpu, fps: 18}
+  embedding: {provider: real, model: sface, target: host_gpu, trigger: logic}
+business:
+  gallery: data/gallery/real.json

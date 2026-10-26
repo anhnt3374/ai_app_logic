@@ -1,0 +1,25 @@
+# This host: WSL, CUDA 13.2 installed on Linux host, GPU passed through /dev/dxg.
+# For native NVIDIA Container Toolkit, use --gpus all and a matching CUDA image.
+services:
+  simulator:
+    image: camera-logic-simulator:gpu
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.gpu
+    devices:
+      - /dev/dxg:/dev/dxg
+    environment:
+      LD_LIBRARY_PATH: /opt/cuda:/opt/cudnn:/usr/lib/wsl/lib
+    volumes:
+      - /usr/lib/wsl/lib:/usr/lib/wsl/lib:ro
+      - /usr/lib/wsl/drivers:/usr/lib/wsl/drivers:ro
+      - /usr/local/cuda-13.2/targets/x86_64-linux/lib:/opt/cuda:ro
+      - /lib/x86_64-linux-gnu/libcudnn.so.9:/opt/cudnn/libcudnn.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_adv.so.9:/opt/cudnn/libcudnn_adv.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_cnn.so.9:/opt/cudnn/libcudnn_cnn.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_graph.so.9:/opt/cudnn/libcudnn_graph.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_heuristic.so.9:/opt/cudnn/libcudnn_heuristic.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_ops.so.9:/opt/cudnn/libcudnn_ops.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_engines_precompiled.so.9:/opt/cudnn/libcudnn_engines_precompiled.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_engines_runtime_compiled.so.9:/opt/cudnn/libcudnn_engines_runtime_compiled.so.9:ro
+      - /lib/x86_64-linux-gnu/libcudnn_engines_tensor_ir.so.9:/opt/cudnn/libcudnn_engines_tensor_ir.so.9:ro

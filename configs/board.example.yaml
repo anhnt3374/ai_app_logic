@@ -1,0 +1,25 @@
+# Copy and edit. All three stages run in a persistent board worker over SSH.
+schema_version: 1
+logic_id: face_recognition-2026-10-25-213000
+input: {path: data/input/real-demo.mp4}
+output: {root: runs}
+targets:
+  board:
+    location: board
+    device: cpu  # gpu/npu require a compatible runtime image; use doctor first
+    runtime: opencv
+    allow_fallback: false
+    worker_image: camera-logic-simulator:cpu
+    model_root: /opt/camera-simulator/models
+    connection:
+      host: ${BOARD_SSH_HOST}
+      port: ${BOARD_SSH_PORT}
+      username: ${BOARD_SSH_USER}
+      password_prompt: true
+      accept_new_host_key: false
+stages:
+  person: {provider: real, model: yolox, target: board, fps: 18}
+  face: {provider: real, model: yunet, target: board, fps: 18}
+  embedding: {provider: real, model: sface, target: board, trigger: logic}
+business:
+  gallery: data/gallery/real.json

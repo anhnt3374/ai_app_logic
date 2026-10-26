@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "camera-logic-simulator"
+version = "0.1.0"
+description = "Deterministic MP4 face recognition business logic simulator"
+requires-python = ">=3.10"
+dependencies = ["av==16.0.1", "numpy==2.2.6", "opencv-python-headless==4.11.0.86", "pydantic==2.11.7", "PyYAML==6.0.2", "paramiko==3.5.1"]
+
+[project.scripts]
+logic-simulator = "logic_simulator.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+cache_dir = "/tmp/logic-simulator-pytest-cache"

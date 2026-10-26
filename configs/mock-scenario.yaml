@@ -1,0 +1,11 @@
+# Bbox normalized in full frame. Face bbox normalized within each person crop.
+embedding_noise: 0
+people:
+  - id: alice
+    bbox: [0.05, 0.10, 0.45, 0.95]
+    face_bbox: [0.20, 0.05, 0.80, 0.40]
+    embedding: [1, 0, 0]
+  - id: bob
+    bbox: [0.55, 0.10, 0.95, 0.95]
+    face_bbox: [0.20, 0.05, 0.80, 0.40]
+    embedding: [0, 1, 0]
